@@ -1,0 +1,1110 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+  .cg-app, .cg-app * { box-sizing: border-box; }
+  .cg-app {
+    --ink: #20203a;
+    --eclipse: #1c2541;
+    --eclipse-2: #283662;
+    --parchment: #faf6ec;
+    --card: #fffdf8;
+    --line: #ddd2b4;
+    --marigold: #e0992e;
+    --marigold-deep: #b97417;
+    --cherry: #c4452c;
+    --sage: #5f8567;
+    --muted: #7a7468;
+    font-family: 'Inter', sans-serif;
+    color: var(--ink);
+    background: var(--parchment);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    max-width: 880px;
+    margin: 0 auto;
+  }
+
+  /* ---------- Header / bunting ---------- */
+  .cg-hero {
+    background: var(--eclipse);
+    color: #f4efe2;
+    padding: 30px 28px 22px;
+    position: relative;
+  }
+  .cg-bunting {
+    display: flex;
+    gap: 0;
+    margin: 0 -28px 18px;
+    padding: 0 22px;
+    overflow: hidden;
+    height: 22px;
+  }
+  .cg-flag {
+    width: 0;
+    height: 0;
+    border-left: 11px solid transparent;
+    border-right: 11px solid transparent;
+    border-top: 18px solid var(--marigold);
+    margin-right: 6px;
+    opacity: 0.9;
+  }
+  .cg-flag:nth-child(2n) { border-top-color: var(--cherry); }
+  .cg-flag:nth-child(3n) { border-top-color: var(--sage); }
+  .cg-hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: 34px;
+    font-weight: 700;
+    margin: 0 0 6px;
+    letter-spacing: -0.01em;
+  }
+  .cg-hero p {
+    margin: 0;
+    font-size: 14.5px;
+    color: #cfd3e6;
+    max-width: 520px;
+    line-height: 1.5;
+  }
+  .cg-voter {
+    margin-top: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .cg-voter label {
+    font-size: 12.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #aab0cc;
+  }
+  .cg-voter input {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: #fff;
+    padding: 7px 11px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    min-width: 160px;
+  }
+  .cg-voter input::placeholder { color: #8c92b3; }
+  .cg-voter-saved { font-size: 13px; color: #e0992e; }
+
+  /* ---------- Body layout ---------- */
+  .cg-main { padding: 26px 28px 34px; }
+  .cg-section-title {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 4px;
+  }
+  .cg-section-sub {
+    font-size: 13.5px;
+    color: var(--muted);
+    margin: 0 0 16px;
+  }
+
+  /* ---------- Add birthday form ---------- */
+  .cg-add-form {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 16px 18px;
+    margin-bottom: 24px;
+  }
+  .cg-add-form summary {
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14.5px;
+    color: var(--eclipse);
+    list-style: none;
+  }
+  .cg-add-form summary::-webkit-details-marker { display: none; }
+  .cg-add-form summary::before {
+    content: '+ ';
+    color: var(--marigold-deep);
+    font-weight: 700;
+  }
+  .cg-add-form[open] summary::before { content: '– '; }
+  .cg-form-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 10px;
+    margin-top: 14px;
+  }
+  .cg-form-grid .cg-full { grid-column: 1 / -1; }
+  @media (max-width: 560px) { .cg-form-grid { grid-template-columns: 1fr 1fr; } }
+
+  .cg-field { display: flex; flex-direction: column; gap: 4px; }
+  .cg-field label { font-size: 11.5px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+  .cg-field input, .cg-field select, .cg-field textarea {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    background: #fff;
+    color: var(--ink);
+  }
+  .cg-field input:focus, .cg-field select:focus, .cg-field textarea:focus,
+  .cg-app button:focus-visible {
+    outline: 2px solid var(--marigold-deep);
+    outline-offset: 1px;
+  }
+  .cg-btn {
+    border: none;
+    border-radius: 8px;
+    padding: 9px 16px;
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: transform 0.05s ease;
+  }
+  .cg-btn:active { transform: scale(0.97); }
+  .cg-btn-primary { background: var(--eclipse); color: #fff; }
+  .cg-btn-primary:hover { background: var(--eclipse-2); }
+  .cg-btn-outline { background: transparent; border: 1px solid var(--line); color: var(--ink); }
+  .cg-btn-outline:hover { border-color: var(--marigold-deep); }
+  .cg-btn-danger { background: transparent; color: var(--cherry); border: 1px solid transparent; }
+  .cg-btn-danger:hover { text-decoration: underline; }
+  .cg-btn-small { padding: 5px 10px; font-size: 12.5px; }
+  .cg-row-end { display: flex; justify-content: flex-end; margin-top: 12px; }
+
+  /* ---------- Birthday list ---------- */
+  .cg-list { display: flex; flex-direction: column; gap: 10px; }
+  .cg-empty {
+    border: 1px dashed var(--line);
+    border-radius: 12px;
+    padding: 26px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 14px;
+  }
+  .cg-bday-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .cg-bday-card > summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .cg-bday-card > summary::-webkit-details-marker { display: none; }
+  .cg-chevron {
+    width: 9px; height: 9px;
+    border-right: 2px solid var(--muted);
+    border-bottom: 2px solid var(--muted);
+    transform: rotate(-45deg);
+    transition: transform 0.15s ease;
+    flex: none;
+  }
+  .cg-bday-card[open] .cg-chevron { transform: rotate(45deg); }
+  .cg-bday-name { font-weight: 600; font-size: 15.5px; flex: none; }
+  .cg-bday-date {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .cg-badge {
+    margin-left: auto;
+    font-size: 11.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 4px 9px;
+    border-radius: 100px;
+    flex: none;
+  }
+  .cg-badge-soon { background: #fbe9d2; color: var(--marigold-deep); }
+  .cg-badge-today { background: #f6dcd5; color: var(--cherry); }
+  .cg-badge-far { background: #eef0e8; color: var(--sage); }
+  .cg-bday-body { padding: 0 16px 18px 16px; border-top: 1px solid var(--line); }
+  .cg-bday-note { font-size: 13px; color: var(--muted); margin: 12px 0 0; font-style: italic; }
+  .cg-bday-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 10px; }
+
+  /* ---------- Gift pool ---------- */
+  .cg-gift-zone { margin-top: 14px; }
+  .cg-gift-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    font-size: 12.5px;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .cg-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .cg-pill-open { background: #e7f0e6; color: var(--sage); }
+  .cg-pill-closed { background: #f1e3da; color: var(--marigold-deep); }
+  .cg-pill-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+  .cg-tags { display: flex; flex-direction: column; gap: 10px; }
+  .cg-tag {
+    position: relative;
+    background: #fff;
+    border: 1px dashed var(--line);
+    border-radius: 10px;
+    padding: 12px 14px 12px 30px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .cg-tag::before {
+    content: '';
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    border: 1.5px solid var(--line);
+    background: var(--parchment);
+  }
+  .cg-tag.cg-tag-winner { border: 1px solid var(--marigold-deep); background: #fdf7ec; }
+  .cg-tag-main { flex: 1; min-width: 0; }
+  .cg-tag-text { font-weight: 600; font-size: 14.5px; }
+  .cg-tag-cost {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+  .cg-tag-votes { font-size: 12px; color: var(--muted); margin-top: 3px; }
+  .cg-tag-actions { display: flex; align-items: center; gap: 6px; flex: none; }
+  .cg-vote-btn {
+    border: 1px solid var(--line);
+    background: #fff;
+    border-radius: 8px;
+    padding: 7px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--ink);
+  }
+  .cg-vote-btn.voted { background: var(--sage); border-color: var(--sage); color: #fff; }
+  .cg-vote-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+  .cg-stamp {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--cherry);
+    border: 2px solid var(--cherry);
+    border-radius: 6px;
+    padding: 3px 7px;
+    transform: rotate(-6deg);
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+
+  .cg-add-option {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
+  .cg-add-option input[type="text"] { flex: 2; min-width: 140px; }
+  .cg-add-option input[type="number"] { flex: 1; min-width: 90px; }
+  .cg-add-option input {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-size: 13.5px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .cg-deadline-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+  }
+  .cg-deadline-row label { font-size: 12.5px; color: var(--muted); }
+  .cg-deadline-row input[type="date"] {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 6px 9px;
+    font-size: 13px;
+    font-family: 'Space Mono', monospace;
+  }
+
+  .cg-winner-box {
+    margin-top: 16px;
+    background: var(--eclipse);
+    color: #f4efe2;
+    border-radius: 12px;
+    padding: 16px 18px;
+  }
+  .cg-winner-box .cg-win-label {
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--marigold);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .cg-winner-box h4 {
+    font-family: 'Fraunces', serif;
+    font-size: 19px;
+    margin: 0 0 10px;
+  }
+  .cg-win-cost {
+    font-family: 'Space Mono', monospace;
+    font-size: 22px;
+    color: #fff;
+    margin-bottom: 14px;
+  }
+  .cg-transfer {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .cg-transfer-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13.5px;
+    padding: 4px 0;
+    gap: 10px;
+  }
+  .cg-transfer-row + .cg-transfer-row { border-top: 1px solid rgba(255,255,255,0.1); }
+  .cg-transfer-k { color: #b9bedb; }
+  .cg-transfer-v { font-family: 'Space Mono', monospace; color: #fff; text-align: right; word-break: break-all; }
+  .cg-copy-btn {
+    background: var(--marigold);
+    color: #2b1c06;
+    border: none;
+    border-radius: 6px;
+    padding: 3px 9px;
+    font-size: 11.5px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-left: 8px;
+    flex: none;
+  }
+  .cg-no-account {
+    font-size: 12.5px;
+    color: #d8b896;
+    margin-top: 8px;
+  }
+
+  .cg-account-form {
+    margin-top: 12px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .cg-account-form summary {
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--eclipse);
+    list-style: none;
+  }
+  .cg-account-form summary::-webkit-details-marker { display: none; }
+  .cg-account-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  @media (max-width: 560px) { .cg-account-grid { grid-template-columns: 1fr; } }
+
+  .cg-toast {
+    position: sticky;
+    bottom: 10px;
+    margin: 14px 28px 0;
+    background: var(--ink);
+    color: #fff;
+    padding: 9px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    pointer-events: none;
+  }
+  .cg-toast.show { opacity: 1; }
+  .cg-loading { padding: 40px; text-align: center; color: var(--muted); font-size: 14px; }
+  .cg-shared-note {
+    font-size: 11.5px;
+    color: #8c92b3;
+    margin-top: 14px;
+  }
+  .cg-storage-warning {
+    display: none;
+    margin-top: 12px;
+    background: #4a2218;
+    border: 1px solid var(--cherry);
+    color: #f6d9cf;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 12.5px;
+    line-height: 1.5;
+  }
+  .cg-storage-warning.show { display: block; }
+</style>
+
+<div class="cg-app">
+  <div class="cg-hero">
+    <div class="cg-bunting" id="cgBunting"></div>
+    <h1>Cumples &amp; Regalos</h1>
+    <p>Cargá los cumpleaños del grupo, proponé ideas de regalo, votá la favorita y, cuando se cierre la votación, quedan a la vista el costo y los datos para transferir.</p>
+    <div class="cg-voter">
+      <label for="cgVoterName">Tu nombre (para votar)</label>
+      <input id="cgVoterName" type="text" placeholder="Ej: Mariana" />
+      <button class="cg-btn cg-btn-small cg-btn-primary" id="cgSaveVoterBtn">Guardar</button>
+      <span class="cg-voter-saved" id="cgVoterSaved"></span>
+    </div>
+    <div class="cg-shared-note">Esta agenda es compartida en tiempo real: todas las personas que abran esta página ven y pueden editar la misma información, y los cambios aparecen al instante para todos.</div>
+    <div class="cg-storage-warning" id="cgStorageWarning"></div>
+  </div>
+
+  <div class="cg-main" id="cgMain">
+    <div class="cg-loading" id="cgLoading">Cargando agenda…</div>
+  </div>
+
+  <div class="cg-toast" id="cgToast"></div>
+</div>
+
+<script type="module">
+// ======================================================================
+// CONFIGURACIÓN DE FIREBASE — pegá acá los datos de tu proyecto.
+// Los conseguís en: Configuración del proyecto > Tus apps > app web (</>)
+// ======================================================================
+const firebaseConfig = {
+  apiKey: "PEGA_TU_API_KEY",
+  authDomain: "PEGA_TU_PROYECTO.firebaseapp.com",
+  projectId: "PEGA_TU_PROYECTO_ID",
+  storageBucket: "PEGA_TU_PROYECTO.appspot.com",
+  messagingSenderId: "PEGA_TU_SENDER_ID",
+  appId: "PEGA_TU_APP_ID"
+};
+// ======================================================================
+
+(function(){
+  const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+
+  let state = { birthdays: [], gifts: {} };
+  let voterName = '';
+  let expandedIds = new Set();
+  let openAddForm = false;
+  let fbApp = null;
+  let db = null;
+  let stateDocRef = null;
+  let firebaseReady = false;
+  let setupStatus = 'ok'; // 'ok' | 'unconfigured' | 'error'
+  let initializeApp, getFirestore, doc, getDoc, setDoc, onSnapshot;
+
+  const main = document.getElementById('cgMain');
+  const toastEl = document.getElementById('cgToast');
+
+  function genId(){ return Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
+
+  function showToast(msg){
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastEl._t);
+    toastEl._t = setTimeout(()=> toastEl.classList.remove('show'), 2600);
+  }
+
+  function escapeHtml(str){
+    return String(str == null ? '' : str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  function money(n){
+    const v = Number(n) || 0;
+    return '$ ' + v.toLocaleString('es-AR', { maximumFractionDigits: 2 });
+  }
+
+  // ---------- storage (Firebase Firestore) ----------
+  function isConfigFilled(){
+    return !!firebaseConfig.apiKey && firebaseConfig.apiKey.indexOf('PEGA_') === -1;
+  }
+
+  function showSetupWarning(kind){
+    const el = document.getElementById('cgStorageWarning');
+    if (kind === 'unconfigured') {
+      el.textContent = 'Todavía falta conectar la base de datos: abrí el archivo y pegá tu configuración de Firebase donde dice "PEGA_TU_..." (buscá firebaseConfig cerca del principio del archivo). Hasta entonces, lo que agregues solo se ve en esta pestaña y se pierde al recargar.';
+    } else {
+      el.textContent = 'No pude conectarme a la base de datos (puede ser un problema de conexión, de configuración, o de permisos en Firestore). Por ahora, lo que agregues solo se ve en esta pestaña.';
+    }
+    el.classList.add('show');
+  }
+
+  async function loadFirebaseSdk(){
+    const appMod = await import('https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js');
+    const fsMod = await import('https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js');
+    initializeApp = appMod.initializeApp;
+    getFirestore = fsMod.getFirestore;
+    doc = fsMod.doc;
+    getDoc = fsMod.getDoc;
+    setDoc = fsMod.setDoc;
+    onSnapshot = fsMod.onSnapshot;
+  }
+
+  async function initFirebase(){
+    if (!isConfigFilled()) { setupStatus = 'unconfigured'; return; }
+    try {
+      await loadFirebaseSdk();
+      fbApp = initializeApp(firebaseConfig);
+      db = getFirestore(fbApp);
+      stateDocRef = doc(db, 'cumpleApp', 'state');
+      const snap = await getDoc(stateDocRef);
+      if (!snap.exists()) {
+        await setDoc(stateDocRef, { birthdays: [], gifts: {} });
+      }
+      firebaseReady = true;
+      setupStatus = 'ok';
+    } catch (e) {
+      firebaseReady = false;
+      setupStatus = 'error';
+    }
+  }
+
+  async function loadState(){
+    if (!firebaseReady) { state = { birthdays: [], gifts: {} }; return; }
+    try {
+      const snap = await getDoc(stateDocRef);
+      const data = snap.exists() ? snap.data() : {};
+      state = { birthdays: data.birthdays || [], gifts: data.gifts || {} };
+    } catch (e) {
+      state = { birthdays: [], gifts: {} };
+    }
+  }
+
+  function watchState(){
+    if (!firebaseReady) return;
+    onSnapshot(stateDocRef, (snap) => {
+      if (!snap.exists()) return;
+      const data = snap.data();
+      state = { birthdays: data.birthdays || [], gifts: data.gifts || {} };
+      render();
+    });
+  }
+
+  async function saveState(){
+    if (!firebaseReady) { showToast('No se pudo guardar: revisá la configuración de Firebase.'); return; }
+    try {
+      await setDoc(stateDocRef, state);
+    } catch (e) {
+      showToast('No se pudo guardar el cambio. Probá de nuevo.');
+    }
+  }
+
+  async function loadVoter(){
+    try { voterName = localStorage.getItem('voterName') || ''; } catch (e) { voterName = ''; }
+  }
+
+  async function saveVoter(name){
+    voterName = name.trim();
+    try { localStorage.setItem('voterName', voterName); } catch (e) {}
+  }
+
+
+  // ---------- date helpers ----------
+  function daysInMonth(month, year){
+    return new Date(year, month, 0).getDate();
+  }
+
+  function nextOccurrence(day, month){
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    let year = today.getFullYear();
+    let d = Math.min(day, daysInMonth(month, year));
+    let date = new Date(year, month - 1, d);
+    if (date < today) {
+      year += 1;
+      d = Math.min(day, daysInMonth(month, year));
+      date = new Date(year, month - 1, d);
+    }
+    return date;
+  }
+
+  function daysUntil(date){
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    return Math.round((date - today) / 86400000);
+  }
+
+  function formatLong(day, month){
+    return day + ' de ' + MESES[month - 1];
+  }
+
+  function formatIsoLong(iso){
+    const [y,m,d] = iso.split('-').map(Number);
+    return d + ' de ' + MESES[m-1] + ' de ' + y;
+  }
+
+  // ---------- gift pool helpers ----------
+  function normName(s){ return (s || '').trim().toLowerCase(); }
+
+  function isOwnBirthday(b){
+    return !!voterName && normName(voterName) === normName(b.name);
+  }
+
+  function getGift(bid){ return state.gifts[bid] || null; }
+
+  function isVotingOpen(gift){
+    if (!gift) return false;
+    if (gift.closed) return false;
+    if (gift.deadline) {
+      const end = new Date(gift.deadline + 'T23:59:59');
+      if (new Date() > end) return false;
+    }
+    return true;
+  }
+
+  function getWinner(gift){
+    if (!gift) return null;
+    if (isVotingOpen(gift)) return null;
+    if (gift.chosenOptionId) {
+      const chosen = gift.options.find(o => o.id === gift.chosenOptionId);
+      if (chosen) return chosen;
+    }
+    if (!gift.options.length) return null;
+    let best = null;
+    for (const o of gift.options) {
+      if (!best || o.votes.length > best.votes.length) best = o;
+    }
+    return (best && best.votes.length > 0) ? best : null;
+  }
+
+  // ---------- mutations ----------
+  async function addBirthday(data){
+    state.birthdays.push({ id: genId(), name: data.name, day: data.day, month: data.month, year: data.year || null, note: data.note || '' });
+    await saveState();
+    render();
+  }
+
+  async function deleteBirthday(id){
+    state.birthdays = state.birthdays.filter(b => b.id !== id);
+    delete state.gifts[id];
+    expandedIds.delete(id);
+    await saveState();
+    render();
+  }
+
+  async function createGiftPool(bid){
+    state.gifts[bid] = { options: [], deadline: null, closed: false, chosenOptionId: null, account: { titular:'', alias:'', cbu:'', banco:'' } };
+    await saveState();
+    render();
+  }
+
+  async function addOption(bid, text, cost){
+    const gift = getGift(bid);
+    if (!gift) return;
+    gift.options.push({ id: genId(), text, cost: Number(cost) || 0, votes: [] });
+    await saveState();
+    render();
+  }
+
+  async function deleteOption(bid, oid){
+    const gift = getGift(bid);
+    if (!gift) return;
+    gift.options = gift.options.filter(o => o.id !== oid);
+    if (gift.chosenOptionId === oid) gift.chosenOptionId = null;
+    await saveState();
+    render();
+  }
+
+  async function toggleVote(bid, oid){
+    if (!voterName) { showToast('Primero escribí tu nombre arriba y guardalo.'); return; }
+    const gift = getGift(bid);
+    if (!gift || !isVotingOpen(gift)) return;
+    for (const o of gift.options) {
+      const idx = o.votes.indexOf(voterName);
+      if (o.id === oid) {
+        if (idx >= 0) o.votes.splice(idx, 1);
+        else o.votes.push(voterName);
+      } else if (idx >= 0) {
+        o.votes.splice(idx, 1);
+      }
+    }
+    await saveState();
+    render();
+  }
+
+  async function saveDeadline(bid, iso){
+    const gift = getGift(bid);
+    if (!gift) return;
+    gift.deadline = iso || null;
+    await saveState();
+    render();
+  }
+
+  async function closeVoting(bid){
+    const gift = getGift(bid);
+    if (!gift) return;
+    gift.closed = true;
+    await saveState();
+    render();
+  }
+
+  async function reopenVoting(bid){
+    const gift = getGift(bid);
+    if (!gift) return;
+    gift.closed = false;
+    gift.chosenOptionId = null;
+    await saveState();
+    render();
+  }
+
+  async function chooseOption(bid, oid){
+    const gift = getGift(bid);
+    if (!gift) return;
+    gift.chosenOptionId = oid;
+    gift.closed = true;
+    await saveState();
+    render();
+  }
+
+  async function saveAccount(bid, account){
+    const gift = getGift(bid);
+    if (!gift) return;
+    gift.account = account;
+    await saveState();
+    render();
+  }
+
+  // ---------- rendering ----------
+  function renderBunting(){
+    const el = document.getElementById('cgBunting');
+    let html = '';
+    for (let i = 0; i < 26; i++) html += '<div class="cg-flag"></div>';
+    el.innerHTML = html;
+  }
+
+  function badgeFor(days){
+    if (days <= 0) return '<span class="cg-badge cg-badge-today">Hoy</span>';
+    if (days <= 14) return '<span class="cg-badge cg-badge-soon">En ' + days + ' días</span>';
+    return '<span class="cg-badge cg-badge-far">En ' + days + ' días</span>';
+  }
+
+  function renderGiftZone(b){
+    const gift = getGift(b.id);
+    if (!gift) {
+      return '<div class="cg-gift-zone">'
+        + '<button class="cg-btn cg-btn-outline cg-btn-small" data-action="create-pool" data-bid="' + b.id + '">Proponer opciones de regalo</button>'
+        + '</div>';
+    }
+
+    const open = isVotingOpen(gift);
+    const winner = getWinner(gift);
+
+    let statusHtml = '';
+    if (open) {
+      statusHtml = '<span class="cg-pill cg-pill-open"><span class="cg-pill-dot"></span>Votación abierta'
+        + (gift.deadline ? ' · cierra el ' + formatIsoLong(gift.deadline) : '') + '</span>';
+    } else {
+      statusHtml = '<span class="cg-pill cg-pill-closed"><span class="cg-pill-dot"></span>Votación cerrada</span>';
+    }
+
+    let optionsHtml = '';
+    if (!gift.options.length) {
+      optionsHtml = '<div class="cg-empty">Todavía no hay opciones de regalo. Agregá la primera abajo.</div>';
+    } else {
+      optionsHtml = '<div class="cg-tags">' + gift.options.map(o => {
+        const myVote = voterName && o.votes.includes(voterName);
+        const isWinner = winner && winner.id === o.id;
+        let actions = '';
+        if (open) {
+          actions = '<button class="cg-vote-btn ' + (myVote ? 'voted' : '') + '" data-action="vote" data-bid="' + b.id + '" data-oid="' + o.id + '">'
+            + (myVote ? 'Votado ✓' : 'Votar') + '</button>'
+            + '<button class="cg-btn cg-btn-danger cg-btn-small" data-action="delete-option" data-bid="' + b.id + '" data-oid="' + o.id + '">Quitar</button>';
+        } else {
+          actions = (isWinner ? '<span class="cg-stamp">ELEGIDO</span>' : '<button class="cg-btn cg-btn-outline cg-btn-small" data-action="choose-option" data-bid="' + b.id + '" data-oid="' + o.id + '">Elegir esta</button>');
+        }
+        return '<div class="cg-tag ' + (isWinner ? 'cg-tag-winner' : '') + '">'
+          + '<div class="cg-tag-main">'
+            + '<div class="cg-tag-text">' + escapeHtml(o.text) + '</div>'
+            + '<div class="cg-tag-cost">' + money(o.cost) + '</div>'
+            + '<div class="cg-tag-votes">' + o.votes.length + ' voto' + (o.votes.length === 1 ? '' : 's') + (o.votes.length ? ': ' + escapeHtml(o.votes.join(', ')) : '') + '</div>'
+          + '</div>'
+          + '<div class="cg-tag-actions">' + actions + '</div>'
+        + '</div>';
+      }).join('') + '</div>';
+    }
+
+    let addOptionHtml = '';
+    if (open) {
+      addOptionHtml = '<div class="cg-add-option" data-panel="add-option" data-bid="' + b.id + '">'
+        + '<input type="text" name="text" placeholder="Idea de regalo" aria-label="Idea de regalo" maxlength="80" />'
+        + '<input type="number" name="cost" placeholder="Costo" aria-label="Costo" min="0" step="1" />'
+        + '<button class="cg-btn cg-btn-primary cg-btn-small" type="button" data-action="submit-add-option" data-bid="' + b.id + '">Agregar opción</button>'
+      + '</div>';
+    }
+
+    const deadlineRow = '<div class="cg-deadline-row">'
+      + '<label for="dl-' + b.id + '">Fecha límite de votación</label>'
+      + '<input type="date" id="dl-' + b.id + '" data-action="set-deadline" data-bid="' + b.id + '" value="' + (gift.deadline || '') + '" />'
+      + (open
+          ? '<button class="cg-btn cg-btn-outline cg-btn-small" data-action="close-voting" data-bid="' + b.id + '">Cerrar votación ahora</button>'
+          : '<button class="cg-btn cg-btn-outline cg-btn-small" data-action="reopen-voting" data-bid="' + b.id + '">Reabrir votación</button>')
+    + '</div>';
+
+    let winnerHtml = '';
+    if (!open) {
+      if (winner) {
+        const acc = gift.account || {};
+        const hasAccount = acc.alias || acc.cbu || acc.titular;
+        winnerHtml = '<div class="cg-winner-box">'
+          + '<div class="cg-win-label">Regalo elegido</div>'
+          + '<h4>' + escapeHtml(winner.text) + '</h4>'
+          + '<div class="cg-win-cost">' + money(winner.cost) + '</div>'
+          + (hasAccount
+              ? '<div class="cg-transfer">'
+                + (acc.titular ? '<div class="cg-transfer-row"><span class="cg-transfer-k">Titular</span><span class="cg-transfer-v">' + escapeHtml(acc.titular) + '</span></div>' : '')
+                + (acc.alias ? '<div class="cg-transfer-row"><span class="cg-transfer-k">Alias</span><span class="cg-transfer-v">' + escapeHtml(acc.alias) + '<button class="cg-copy-btn" data-action="copy" data-value="' + escapeHtml(acc.alias) + '">Copiar</button></span></div>' : '')
+                + (acc.cbu ? '<div class="cg-transfer-row"><span class="cg-transfer-k">CBU / CVU</span><span class="cg-transfer-v">' + escapeHtml(acc.cbu) + '<button class="cg-copy-btn" data-action="copy" data-value="' + escapeHtml(acc.cbu) + '">Copiar</button></span></div>' : '')
+                + (acc.banco ? '<div class="cg-transfer-row"><span class="cg-transfer-k">Banco</span><span class="cg-transfer-v">' + escapeHtml(acc.banco) + '</span></div>' : '')
+              + '</div>'
+              : '<div class="cg-no-account">Todavía no se cargaron los datos para transferir. Completalos abajo.</div>')
+        + '</div>';
+      } else {
+        winnerHtml = '<div class="cg-empty">La votación cerró sin votos suficientes. Elegí una opción manualmente arriba con "Elegir esta".</div>';
+      }
+    }
+
+    const acc = gift.account || {};
+    const accountFormHtml = '<details class="cg-account-form">'
+      + '<summary>Datos para transferir</summary>'
+      + '<div data-panel="save-account" data-bid="' + b.id + '" class="cg-account-grid" style="margin-top:10px;">'
+        + '<div class="cg-field"><label>Titular</label><input type="text" name="titular" value="' + escapeHtml(acc.titular || '') + '" placeholder="Nombre y apellido" /></div>'
+        + '<div class="cg-field"><label>Alias</label><input type="text" name="alias" value="' + escapeHtml(acc.alias || '') + '" placeholder="ej: regalo.maria" /></div>'
+        + '<div class="cg-field"><label>CBU / CVU</label><input type="text" name="cbu" value="' + escapeHtml(acc.cbu || '') + '" placeholder="22 dígitos" /></div>'
+        + '<div class="cg-field"><label>Banco / billetera</label><input type="text" name="banco" value="' + escapeHtml(acc.banco || '') + '" placeholder="ej: Mercado Pago" /></div>'
+        + '<div class="cg-full cg-row-end" style="margin-top:0;"><button class="cg-btn cg-btn-primary cg-btn-small" type="button" data-action="submit-save-account" data-bid="' + b.id + '">Guardar datos</button></div>'
+      + '</div>'
+    + '</details>';
+
+
+    return '<div class="cg-gift-zone">'
+      + '<div class="cg-gift-status">' + statusHtml + '</div>'
+      + winnerHtml
+      + optionsHtml
+      + addOptionHtml
+      + deadlineRow
+      + accountFormHtml
+    + '</div>';
+  }
+
+  function render(){
+    const sorted = state.birthdays.slice().sort((a, b) => {
+      return daysUntil(nextOccurrence(a.day, a.month)) - daysUntil(nextOccurrence(b.day, b.month));
+    });
+
+    let listHtml = '';
+    if (!sorted.length) {
+      listHtml = '<div class="cg-empty">Todavía no agregaste ningún cumpleaños. Usá el formulario de arriba para cargar el primero.</div>';
+    } else {
+      listHtml = '<div class="cg-list">' + sorted.map(b => {
+        const occ = nextOccurrence(b.day, b.month);
+        const days = daysUntil(occ);
+        const isOpen = expandedIds.has(b.id);
+        let ageLine = '';
+        if (b.year) {
+          const turning = occ.getFullYear() - b.year;
+          ageLine = ' · cumple ' + turning;
+        }
+        return '<details class="cg-bday-card" data-id="' + b.id + '" ' + (isOpen ? 'open' : '') + '>'
+          + '<summary>'
+            + '<span class="cg-chevron"></span>'
+            + '<span class="cg-bday-name">' + escapeHtml(b.name) + '</span>'
+            + '<span class="cg-bday-date">' + formatLong(b.day, b.month) + ageLine + '</span>'
+            + badgeFor(days)
+          + '</summary>'
+          + '<div class="cg-bday-body">'
+            + (b.note ? '<p class="cg-bday-note">' + escapeHtml(b.note) + '</p>' : '')
+            + (isOwnBirthday(b)
+                ? '<div class="cg-empty">Es tu cumpleaños: para que sea sorpresa, no podés ver ni votar las propuestas de regalo para vos. Pedile a otra persona del grupo que las gestione.</div>'
+                : renderGiftZone(b))
+            + '<div class="cg-bday-actions">'
+              + '<button class="cg-btn cg-btn-danger cg-btn-small" data-action="delete-bday" data-bid="' + b.id + '">Eliminar cumpleaños</button>'
+            + '</div>'
+          + '</div>'
+        + '</details>';
+      }).join('') + '</div>';
+    }
+
+    const yearOptions = (function(){
+      let h = '<option value="">Año (opcional)</option>';
+      const current = new Date().getFullYear();
+      for (let y = current; y >= current - 100; y--) h += '<option value="' + y + '">' + y + '</option>';
+      return h;
+    })();
+
+    const dayOptions = (function(){
+      let h = '';
+      for (let d = 1; d <= 31; d++) h += '<option value="' + d + '">' + d + '</option>';
+      return h;
+    })();
+
+    const monthOptions = MESES.map((m, i) => '<option value="' + (i+1) + '">' + m + '</option>').join('');
+
+    main.innerHTML = ''
+      + '<h2 class="cg-section-title">Calendario de cumpleaños</h2>'
+      + '<p class="cg-section-sub">Ordenado automáticamente por el más próximo.</p>'
+      + '<details class="cg-add-form" ' + (openAddForm ? 'open' : '') + '>'
+        + '<summary>Agregar un cumpleaños</summary>'
+        + '<div data-panel="add-bday">'
+          + '<div class="cg-form-grid">'
+            + '<div class="cg-field cg-full"><label>Nombre</label><input type="text" name="name" maxlength="60" placeholder="Nombre de la persona" /></div>'
+            + '<div class="cg-field"><label>Día</label><select name="day">' + dayOptions + '</select></div>'
+            + '<div class="cg-field"><label>Mes</label><select name="month">' + monthOptions + '</select></div>'
+            + '<div class="cg-field"><label>Año de nacimiento</label><select name="year">' + yearOptions + '</select></div>'
+            + '<div class="cg-field cg-full"><label>Nota (opcional)</label><input type="text" name="note" maxlength="120" placeholder="ej: le gustan las plantas" /></div>'
+          + '</div>'
+          + '<div class="cg-row-end"><button class="cg-btn cg-btn-primary" type="button" data-action="submit-add-bday">Guardar cumpleaños</button></div>'
+        + '</div>'
+      + '</details>'
+      + listHtml;
+
+    // sync <details> toggle state
+    main.querySelectorAll('details.cg-bday-card').forEach(d => {
+      d.addEventListener('toggle', () => {
+        if (d.open) expandedIds.add(d.dataset.id);
+        else expandedIds.delete(d.dataset.id);
+      });
+    });
+    const addForm = main.querySelector('details.cg-add-form');
+    if (addForm) addForm.addEventListener('toggle', () => { openAddForm = addForm.open; });
+  }
+
+  // ---------- events ----------
+  function readAddBdayPanel(panel){
+    const name = (panel.querySelector('input[name="name"]').value || '').trim();
+    const day = parseInt(panel.querySelector('select[name="day"]').value, 10);
+    const month = parseInt(panel.querySelector('select[name="month"]').value, 10);
+    const yearVal = panel.querySelector('select[name="year"]').value;
+    const year = yearVal ? parseInt(yearVal, 10) : null;
+    const note = (panel.querySelector('input[name="note"]').value || '').trim();
+    return { name, day, month, year, note };
+  }
+
+  function readAddOptionPanel(panel){
+    const text = (panel.querySelector('input[name="text"]').value || '').trim();
+    const cost = panel.querySelector('input[name="cost"]').value;
+    return { text, cost };
+  }
+
+  function readAccountPanel(panel){
+    return {
+      titular: (panel.querySelector('input[name="titular"]').value || '').trim(),
+      alias: (panel.querySelector('input[name="alias"]').value || '').trim(),
+      cbu: (panel.querySelector('input[name="cbu"]').value || '').trim(),
+      banco: (panel.querySelector('input[name="banco"]').value || '').trim()
+    };
+  }
+
+  function handleSubmitAction(action, btn){
+    if (action === 'submit-add-bday') {
+      const panel = btn.closest('[data-panel="add-bday"]');
+      const data = readAddBdayPanel(panel);
+      if (!data.name) { showToast('Escribí un nombre antes de guardar.'); return; }
+      if (!data.day || !data.month) { showToast('Elegí el día y el mes.'); return; }
+      openAddForm = false;
+      addBirthday(data);
+    } else if (action === 'submit-add-option') {
+      const bid = btn.dataset.bid;
+      const panel = btn.closest('[data-panel="add-option"]');
+      const data = readAddOptionPanel(panel);
+      if (!data.text) { showToast('Escribí una idea de regalo antes de agregarla.'); return; }
+      addOption(bid, data.text, data.cost);
+    } else if (action === 'submit-save-account') {
+      const bid = btn.dataset.bid;
+      const panel = btn.closest('[data-panel="save-account"]');
+      saveAccount(bid, readAccountPanel(panel));
+    }
+  }
+
+  main.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-action]');
+    if (!btn) return;
+    const action = btn.dataset.action;
+    const bid = btn.dataset.bid;
+    const oid = btn.dataset.oid;
+
+    if (action === 'create-pool') createGiftPool(bid);
+    else if (action === 'vote') toggleVote(bid, oid);
+    else if (action === 'delete-option') {
+      if (confirm('¿Quitar esta opción de regalo?')) deleteOption(bid, oid);
+    }
+    else if (action === 'choose-option') chooseOption(bid, oid);
+    else if (action === 'close-voting') closeVoting(bid);
+    else if (action === 'reopen-voting') reopenVoting(bid);
+    else if (action === 'delete-bday') {
+      if (confirm('¿Eliminar este cumpleaños y todas sus propuestas de regalo?')) deleteBirthday(bid);
+    }
+    else if (action === 'copy') {
+      const val = btn.dataset.value;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(val).then(() => showToast('Copiado'));
+      }
+    }
+    else if (action.indexOf('submit-') === 0) {
+      handleSubmitAction(action, btn);
+    }
+  });
+
+  main.addEventListener('change', (e) => {
+    if (e.target.dataset && e.target.dataset.action === 'set-deadline') {
+      saveDeadline(e.target.dataset.bid, e.target.value);
+    }
+  });
+
+  // Enter key triggers the submit button inside the same panel, for convenience
+  main.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter') return;
+    const panel = e.target.closest('[data-panel]');
+    if (!panel) return;
+    if (e.target.tagName === 'SELECT') return;
+    e.preventDefault();
+    const btn = panel.querySelector('[data-action^="submit-"]');
+    if (btn) btn.click();
+  });
+
+  document.getElementById('cgSaveVoterBtn').addEventListener('click', () => {
+    const input = document.getElementById('cgVoterName');
+    const name = input.value.trim();
+    if (!name) { showToast('Escribí un nombre primero.'); return; }
+    saveVoter(name).then(() => {
+      document.getElementById('cgVoterSaved').textContent = 'Hola, ' + voterName;
+      showToast('Listo, ya podés votar.');
+      render();
+    });
+  });
+
+  // ---------- boot ----------
+  async function init(){
+    renderBunting();
+    await initFirebase();
+    await Promise.all([loadState(), loadVoter()]);
+    document.getElementById('cgVoterName').value = voterName || '';
+    if (voterName) document.getElementById('cgVoterSaved').textContent = 'Hola, ' + voterName;
+    document.getElementById('cgLoading').remove();
+    if (setupStatus !== 'ok') showSetupWarning(setupStatus);
+    render();
+    watchState();
+  }
+
+  init();
+})();
+</script>
